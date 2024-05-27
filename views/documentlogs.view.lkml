@@ -42,9 +42,11 @@ view: documentlogs {
     sql: ${TABLE}."searchid" ;;
   }
   dimension: successfeedback {
-    type: yesno
-    sql: ${TABLE}."successfeedback" ;;
+    type: string
+    sql: case when ${TABLE}."successfeedback" is null then 'no feedback'
+    else ${TABLE}."successfeedback" end ;;
   }
+
   dimension: username {
     type: string
     sql: ${TABLE}."username" ;;

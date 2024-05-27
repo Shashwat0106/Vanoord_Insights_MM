@@ -14,6 +14,7 @@ view: searchlogs {
     sql: ${TABLE}."route" ;;
   }
   dimension: searchid {
+    primary_key: yes
     type: string
     sql: ${TABLE}."searchid" ;;
   }
@@ -30,8 +31,21 @@ view: searchlogs {
     type: string
     sql: ${TABLE}."username" ;;
   }
+  measure: total_users {
+    type: count_distinct
+    sql: ${username} ;;
+  }
+  measure: searches_per_users {
+    type: number
+    sql: ${count}/${total_users} ;;
+  }
   measure: count {
     type: count
     drill_fields: [username]
+  }
+  measure: repeat_search_percent {
+    type: number
+    sql: ${repeat_searches.count}/${count};;
+    value_format_name: percent_2
   }
 }

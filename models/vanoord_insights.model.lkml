@@ -12,11 +12,17 @@ persist_with: vanoord_insights_default_datagroup
 
 explore: applicationusagelogs {}
 
-explore: documentlogs {
-  join: searchlogs {
+explore: searchlogs {
+  label: "Documents & Search Logs"
+  join: documentlogs {
     type: left_outer
     relationship: many_to_one
     sql_on: ${documentlogs.searchid}=${searchlogs.searchid} ;;
+  }
+  join: repeat_searches {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${repeat_searches.searchlogs_username} = ${searchlogs.username} ;;
   }
 }
 
