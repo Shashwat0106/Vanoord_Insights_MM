@@ -43,9 +43,10 @@ view: searchlogs {
     type: count
     drill_fields: [username]
   }
-  measure: repeat_search_percent {
+  measure: repeat_percent {
     type: number
-    sql: ${repeat_searches.count}/${count};;
+    sql: CAST(${repeat_searches.count} AS FLOAT)/CAST(${count} AS FLOAT) ;;
     value_format_name: percent_2
   }
+
 }

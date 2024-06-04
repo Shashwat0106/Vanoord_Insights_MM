@@ -13,6 +13,7 @@ persist_with: vanoord_insights_default_datagroup
 explore: applicationusagelogs {}
 
 explore: searchlogs {
+  sql_always_where: ${username}!='john.vandermarel@vanoord.com' and ${username}!='admin'  ;;
   label: "Documents & Search Logs"
   join: documentlogs {
     type: left_outer

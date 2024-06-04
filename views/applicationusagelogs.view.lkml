@@ -21,6 +21,17 @@ view: applicationusagelogs {
     type: string
     sql: ${TABLE}."username" ;;
   }
+  dimension_group: logged {
+    type: duration
+    sql_start: ${logintimestamp_raw} ;;
+    sql_end: ${logouttimestamp_raw} ;;
+    intervals: [minute]
+  }
+  measure: average_logtime {
+    type: average
+    sql: ${minutes_logged} ;;
+    value_format_name: decimal_2
+  }
   measure: count {
     type: count
     drill_fields: [id, username]

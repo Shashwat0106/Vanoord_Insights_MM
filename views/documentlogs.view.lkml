@@ -43,9 +43,12 @@ view: documentlogs {
   }
   dimension: successfeedback {
     type: string
-    sql: case when ${TABLE}."successfeedback" is null then 'no feedback'
-    else ${TABLE}."successfeedback" end ;;
+    sql: CASE WHEN ${TABLE}."successfeedback" IS NULL THEN 'no-feedback'
+              WHEN ${TABLE}."successfeedback"='false' THEN 'no'
+              WHEN ${TABLE}."successfeedback"='true' THEN 'yes'
+               END;;
   }
+
 
   dimension: username {
     type: string
