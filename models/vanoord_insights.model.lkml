@@ -10,12 +10,22 @@ datagroup: vanoord_insights_default_datagroup {
 
 persist_with: vanoord_insights_default_datagroup
 
+access_grant: vanprod {
+  user_attribute: department
+  allowed_values: ["finance"]
+}
+
 explore: applicationusagelogs {}
 
 explore: searchlogs {
+  access_filter: {
+    user_attribute: department
+    field: documentlogs.searchid
+  }
   sql_always_where: ${username}!='john.vandermarel@vanoord.com' and ${username}!='admin'  ;;
   label: "Documents & Search Logs"
   join: documentlogs {
+    required_access_grants: [vanprod]
     type: left_outer
     relationship: many_to_one
     sql_on: ${documentlogs.searchid}=${searchlogs.searchid} ;;
